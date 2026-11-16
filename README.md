@@ -5,6 +5,10 @@ money that leaves quietly: forgotten subscriptions, prices that went up, double 
 
 Nothing is uploaded. The model is a 23 MB file that ships with the page and runs on your device.
 
+**Try it:** https://khozhijon.github.io/loose-change/ (press "Try the sample statement")
+
+![Loose Change showing $791 a year of loose change found in the sample statement](submission/2-headline.png)
+
 ## What it does
 
 - **Reads any bank's CSV.** It works out which column is the date, the description and the amount,
