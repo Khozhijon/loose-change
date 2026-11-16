@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "loose-change",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.ts",
+    "dev": "node tools/build.ts && node tools/serve.ts",
+    "bank": "node tools/embed-bank.ts",
+    "accuracy": "node tools/accuracy.ts",
+    "test": "tsc --noEmit && node --test \"tests/*.test.ts\"",
+    "qa": "node tools/qa.cjs"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "^3.7.0",
+    "@types/node": "24.19.2",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

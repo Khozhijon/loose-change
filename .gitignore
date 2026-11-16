@@ -1,0 +1,7 @@
+node_modules/
+submission/video-tmp/
+*.map
+.DS_Store
+.claude/
+submission/DEVPOST.md
+submission/OTHER-HACKATHONS.md

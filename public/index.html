@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The browser itself is told to refuse any connection to another server. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Loose Change</title>
+<meta name="description" content="Drop in a bank statement. An AI model that runs on your own device finds forgotten subscriptions, price rises, double charges and bank fees. Nothing is uploaded.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="./" aria-label="Loose Change, start page">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" class="coin"/><circle cx="20" cy="20" r="12.5" class="coin-in"/><path d="M24.5 15.5a6 6 0 1 0 0 9M20 11v18" class="coin-mark"/></svg>
+    <span>Loose Change</span>
+  </a>
+  <button class="pill" id="privacy-pill" type="button" aria-haspopup="dialog">
+    <span class="dot" aria-hidden="true"></span><span id="privacy-text">Runs on this device. Nothing is uploaded.</span>
+  </button>
+</header>
+
+<main id="main">
+  <section id="start" class="start">
+    <div class="start-copy">
+      <h1>Find the money that leaves quietly.</h1>
+      <p class="lead">Drop in a bank statement. A small AI model reads it <strong>inside this tab</strong> and points out forgotten subscriptions, prices that went up, double charges and bank fees.</p>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a statement file">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 6h20l8 8v28H10z" class="sheet"/><path d="M30 6v8h8M16 22h16M16 28h16M16 34h9" class="sheet-lines"/></svg>
+        <p><strong>Drop a statement here</strong> or <span class="linkish">choose a file</span></p>
+        <p class="hint">CSV from any bank. The file is read by your browser and never sent anywhere.</p>
+        <input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden>
+      </div>
+      <p class="or">No statement to hand? <button type="button" class="btn primary" id="try-sample">Try the sample statement</button></p>
+      <p class="error" id="start-error" role="alert" hidden></p>
+    </div>
+    <ol class="steps" aria-label="How it works">
+      <li><b>1</b><div><h2>It reads every line</h2><p>Bank descriptions like <code>SQ *BLUE BOTTLE COF #2231</code> are cleaned into merchants and sorted into categories by a language model running on your device.</p></div></li>
+      <li><b>2</b><div><h2>It looks for leaks</h2><p>Charges that come round on a rhythm, prices that crept up, the same bill taken twice, fees your bank hoped you would not add up.</p></div></li>
+      <li><b>3</b><div><h2>You check its work</h2><p>Every finding lists the exact lines behind it. When it is unsure it says so and asks, and it learns from your answer without sending it anywhere.</p></div></li>
+    </ol>
+  </section>
+
+  <div id="app" hidden>
+    <div class="bar">
+      <p id="file-line"></p>
+      <div class="bar-actions">
+        <span class="status" id="model-status" role="status" aria-live="polite"></span>
+        <button type="button" class="btn quiet" data-act="export">Save as CSV</button>
+        <button type="button" class="btn quiet" data-act="reset">Start over</button>
+      </div>
+    </div>
+    <section id="headline" aria-label="Summary"></section>
+    <section id="alerts" aria-labelledby="alerts-h"></section>
+    <section id="regular" aria-labelledby="regular-h"></section>
+    <section id="review" aria-labelledby="review-h"></section>
+    <section id="where" aria-labelledby="where-h"></section>
+    <section id="ask" aria-labelledby="ask-h"></section>
+    <section id="lines" aria-labelledby="lines-h"></section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div id="measured"></div>
+  <p>Loose Change does not give financial advice. It adds up what your statement already says and shows you where to look.</p>
+</footer>
+
+<dialog id="privacy" aria-labelledby="privacy-h">
+  <h2 id="privacy-h">How do I know nothing is uploaded?</h2>
+  <ul>
+    <li><b>The page forbids it.</b> It carries a rule (a Content Security Policy) that tells your browser to refuse every connection except to the address it was loaded from. You can read it at the top of the page source.</li>
+    <li><b>The model is a file, not a service.</b> A 23 MB language model is downloaded once with the page and runs in your browser. There is no AI company on the other end.</li>
+    <li><b>Try it offline.</b> Load the page, switch off your Wi-Fi, then drop in a statement. It still works.</li>
+    <li><b>Nothing is kept.</b> Your statement lives in this tab's memory and is gone when you close it. Only the corrections you teach it are saved, in this browser, and “Start over” can forget those too.</li>
+  </ul>
+  <p id="privacy-proof" class="proof"></p>
+  <button type="button" class="btn primary" id="privacy-close">Close</button>
+</dialog>
+<div id="why" class="why" role="dialog" aria-label="Why this category" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
